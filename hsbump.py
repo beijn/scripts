@@ -23,13 +23,13 @@ def main():
 
 async def _fetch(url):
   """ Get the url content as a html beautiful soup. """
-  import bs4, urllib
+  import bs4, urllib.request
   html = await asyncio.get_event_loop().run_in_executor(None, lambda: urllib.request.urlopen(url).read().decode("utf-8"))
   return bs4.BeautifulSoup(html, "html.parser")
 
 
 async def _fetch_hls_latest():
-  import urllib
+  import urllib.request
   url = "https://github.com/haskell/haskell-language-server/releases/latest"
   tag_url = await asyncio.get_event_loop().run_in_executor(None, lambda: urllib.request.urlopen(url).url)  # latest link gets forwarded to respective tag
   return tag_url.split('/')[-1]  # forwarded url tag is latest version
